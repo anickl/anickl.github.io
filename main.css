@@ -13,4 +13,13 @@ nav {
     margin-top: -18px;
     margin-left: -18px;
     margin-right: -18px;
+    font-size: 20px;
+}
+.shrink {
+    width: 100%;
+    object-fit: contain;
+}
+.expand {
+    width: 50%;
+    object-fit: contain;
 }
