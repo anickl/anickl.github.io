@@ -23,3 +23,7 @@ nav {
     width: 50%;
     object-fit: contain;
 }
+.half {
+    width: 75%;
+    object-fit: contain;
+}
