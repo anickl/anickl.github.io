@@ -1,1 +1,16 @@
-html {background-color: #131416;}
+html {
+    background-color: #131416;
+    color: #8b8999;
+    font-family: Trebuchet MS, sans-serif; 
+}
+a {
+    color: #aaa7bc;
+    text-decoration: none;
+    font-family: Trebuchet MS, sans-serif; 
+}
+nav {
+    background-color: #2f383d;
+    margin-top: -18px;
+    margin-left: -18px;
+    margin-right: -18px;
+}
