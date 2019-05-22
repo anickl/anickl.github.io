@@ -27,3 +27,9 @@ nav {
     width: 75%;
     object-fit: contain;
 }
+.rotate {
+    margin-top: 10%;
+    transform: rotate(90deg);
+    width:75%;
+    object-fit: contain;
+}
