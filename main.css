@@ -33,3 +33,8 @@ nav {
     width:75%;
     object-fit: contain;
 }
+
+.inline {
+    display: inline-block;
+    width:100%;
+    }
