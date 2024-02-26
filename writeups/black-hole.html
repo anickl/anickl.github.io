@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      <link rel="stylesheet" href="../scripts/main.css">
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+    <div id="topbar"></div>
+    
+    <h2>Black Hole Lensing</h2>
+      <div>
+          <video autoplay muted loop style="width:60%; border-radius: 5%; float:right">
+            <source src="https://va.media.tumblr.com/tumblr_rtpmh6duN81z0po5o_720.mp4">
+          </video>
+      </div>
+      <div>
+          <p style="width:37%">Real time lensing animation that was built initially in Blender. This was made as a contribution to <a href="https://icasu.illinois.edu/outreach/point-vr">POINTVR.</a> Eventually this was ported to a c# shader to be used in the Unity engine. The mathematics is simply enough that a version should be able to run in browser, Something that will be completed at a later date.</p>
+      </div>
+      <img src="black-hole/sketch.jpg" style="width:60%;padding-top: 5%;">
+      <p style="float:right;padding-top: 5%; width:40%; word-break:normal;white-space: normal">My initial workflow involed finding the impact parameter(b) to use to solve for the inflection angle(alpha). These came from some prior work I had with orbital mechanics and seemed like a good initial jumping off point.</p>
+      
+      <h2>Impact Parameter</h2>
+      <p style="width:80%">The impact parameter is the 'distance of closest approach' if no forces acted upon the 2 objects being discussed. The key I found to being able to find the impact parameter and build a good looking model was to do the math on a larger sphere.</p>
+      <p>This sphere is the maximum value that we should consider the black hole lensing to be relavant. any light that has a 'larger closest approach'(larger impact parameter) is too far away for black hjole lensing to have any meaningful impact on its direction.</p>
+     
+
+      <p>Video produced to try and explain the process.</p>
+      <iframe width="944" height="531" src="https://www.youtube.com/embed/nMv0OKAKkk4" title="Blender Eevee black hole lensing tutorial plus more." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </body>
+</html>
+    

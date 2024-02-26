@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
   <title>
-    test
+    𓆏
   </title>
   <head>
-      <link rel="stylesheet" href="main.css">
+      <link rel="stylesheet" href="scripts/main.css">
+      <script src="scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("topbar.html");
+      });
+      </script>
   </head>
   <body>
-    <nav>
-      <ul>
-        <a href="index.html">Anickl</a>
-        <a href="planet.html">Astro work</a>
-        <a href="math.html">Math</a>
-        <a href="pics.html">Pics</a>
-        <a href="skins.html">Skins</a>
-      </ul>
-    </nav>
+    <div id="topbar"></div>
     <p>
       start of personal website just a test for now and more will be added
     </p>
@@ -23,6 +21,28 @@
       this is gonna be a work in progress for a long time as I'm doing this to relearn html.
       anything on this site can be taken, just dont claim it to be made by yourself.
     </p>
+    <table class='videos'>
+        <tr>
+            <td>
+                <a href="writeups/black-hole.html">
+                    <video autoplay muted loop style="width:98%; border-radius: 5%;" id="vid1">
+                        <source src="https://va.media.tumblr.com/tumblr_rtpmh6duN81z0po5o_720.mp4">
+                    </video>
+                </a>
+            </td>
+            <td>
+                <video autoplay muted loop style="width:98%; margin-left:2%; border-radius: 5%;" id="vid2">
+                    <source src="https://va.media.tumblr.com/tumblr_rvkctpOumR1z0po5o_720.mp4">
+                </video>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td style="text-align: center"><a href="writeups/black-hole.html">Real Time Black Hole Lensing</a></td>
+            <td style="text-align: center">Night Mountains</td>
+        </tr>
+    </table>
+    
     <h2> Plans</h2>
     <ul>
         <li>
