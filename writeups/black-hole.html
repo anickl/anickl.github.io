@@ -15,23 +15,53 @@
   <body>
     <div id="topbar"></div>
     
-    <h2>Black Hole Lensing</h2>
+    <h1>Black Hole Lensing</h1>
       <div>
           <video autoplay muted loop style="width:60%; border-radius: 5%; float:right">
             <source src="https://va.media.tumblr.com/tumblr_rtpmh6duN81z0po5o_720.mp4">
           </video>
       </div>
       <div>
-          <p style="width:37%">Real time lensing animation that was built initially in Blender. This was made as a contribution to <a href="https://icasu.illinois.edu/outreach/point-vr">POINTVR.</a> Eventually this was ported to a c# shader to be used in the Unity engine. The mathematics is simply enough that a version should be able to run in browser, Something that will be completed at a later date.</p>
+          <p style="width:37%; font-size: 25px;">Real time lensing animation that was built initially in Blender. This was made as a contribution to <a href="https://icasu.illinois.edu/outreach/point-vr">POINTVR.</a> Eventually this was ported to a c# shader to be used in the Unity engine. The mathematics is simply enough that a version should be able to run in browser, Something that will be completed at a later date.</p>
       </div>
       <img src="black-hole/sketch.jpg" style="width:60%;padding-top: 5%;">
-      <p style="float:right;padding-top: 5%; width:40%; word-break:normal;white-space: normal">My initial workflow involed finding the impact parameter(b) to use to solve for the inflection angle(alpha). These came from some prior work I had with orbital mechanics and seemed like a good initial jumping off point.</p>
+      <p style="float:right;padding-top: 5%; width:40%; word-break:normal;white-space: normal;font-size: 25px;">My initial workflow involed finding the impact parameter(b) to use to solve for the inflection angle(alpha). These came from some prior work I had with orbital mechanics and seemed like a good initial jumping off point.</p>
       
-      <h2>Impact Parameter</h2>
-      <p style="width:80%">The impact parameter is the 'distance of closest approach' if no forces acted upon the 2 objects being discussed. The key I found to being able to find the impact parameter and build a good looking model was to do the math on a larger sphere.</p>
-      <p>This sphere is the maximum value that we should consider the black hole lensing to be relavant. any light that has a 'larger closest approach'(larger impact parameter) is too far away for black hjole lensing to have any meaningful impact on its direction.</p>
-     
-
+      <h1>Impact Parameter</h1>
+      <img src="black-hole/sketch2.jpg" style="float:right; width:40%;"/>
+      <p style="width:80%;font-size: 25px;">The impact parameter is the 'distance of closest approach' if no forces acted upon the 2 objects being discussed. The key I found to being able to find the impact parameter and build a good looking model was to do the math on a larger sphere.</p>
+      <p style="font-size:25px;">This sphere is the maximum value that we should consider the black hole lensing to be relavant. any light that has a 'larger closest approach'(larger impact parameter) is too far away for black hole lensing to have any meaningful impact on its direction.</p>
+      <div style="padding-top: 20%">
+          <img src="black-hole/sketch3.jpg" style="float:left;width: 40%;">
+          <p style="font-size: 25px;">Doing some trigenometry on the larger sphere gives us a solution for the impact parameter. One independant variable does come out(the radius of the sphere) which can be set to a constant.</p>
+      </div>
+      <div style="padding-top: 22%">
+      <h1>Deflection angle</h1>
+      <p style="font-size: 25px;">I was able to find 2 different functions from 2 different papers which give a deflection angle from the impact parameter. One <a href="https://arxiv.org/pdf/2010.08735.pdf">paper</a> gave an approximation for large b while the <a href="https://arxiv.org/ftp/arxiv/papers/0803/0803.2468.pdf">other</a> gave an approximation for values close to the event horizon.</p>
+      <img src="black-hole/sketch4.jpg" style="width: 70%">
+      <p style="font-size: 25px;">With these 2 approximations I built a new function to mimic both as closely as I could.</p>
+      </div>
+      <div>
+          <h1>Finding the angle</h1>
+          <img src="black-hole/sketch5.jpg" style="float: right; width: 30%">
+          <p style="font-size: 25px;">The angle has been defined, but the direction of deflection is still needed. For this I used the axis-angle representation since I already had the angle and needed just to solve the axis.</p>
+          <p style="font-size: 25px;">The things I knew was that the axis lived on the tangent bundle of the sphere I'm using and that the axis should be orthogonal to the light source. Both of these can be solved with a cross product</p>
+      </div>
+      <div>
+        <p style="font-size: 25px;">Thats all that It should take. This is the first render.</p>
+        <img src="black-hole/photo1.jpg" style="width: 50%;">
+        <p style="font-size: 25px">Almost good. The sphere should be seemless with the rest of the background which this doesn't have. A smoothing function is needed to change the impact parameter to go from [0,r]→[0,∞]. i just used x/(1-x) as a smoothing function.</p>
+        <img src="black-hole/photo2.jpg" style="width:50%;">
+        <p style="font-size: 25px;">Much better</p>
+      </div>
+      <h1 style="font-size: 40px;">But wait There's more</h1>
+      <p style="font-size: 25px;">Through some mathematical voodoo magic. I found a symmetry in the axis angle roations. Originally I built the rotate to shift looking direction of the light, but you can also use that rotation on the location the light touches the sphere and use that to find its exit location. What I used to convince myself is the fact that the entry angle and the exit angle should be the same in relation to the sphere normal. Basically, a light particle shouldn't care if it goes forwards along the curve or backwards, so each direction should give the same result. You should be able to see someone through the lensing and they would see you from the same direction, just inverted. </p>
+      <img src="black-hole/sketch6.jpg" style="width:40%;">
+      <p style="font-size: 25px;">With the exit position and an exit vector, that's all that is needed to do rudimentary ray tracing. I'll leave the mathematic proof away, but a plane and a sphere are semi-easy to solve for.</p>
+      <img src="black-hole/big.jpg" style="width: 100%;">
+      <img src="black-hole/photo3.jpg" style="width 40%;">
+      <p style="font-size: 25px;">But using these are more difficult in creating a good render, so I didn't use them in the final render. It should mean that the shader could be built farther, something similar to reflections, but I haven't built that part yet and I expect I wont.</p>
+      
       <p>Video produced to try and explain the process.</p>
       <iframe width="944" height="531" src="https://www.youtube.com/embed/nMv0OKAKkk4" title="Blender Eevee black hole lensing tutorial plus more." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </body>
