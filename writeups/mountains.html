@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+    <div id="topbar"></div>
+    <h1>World Building and Noise</h1>
+    <p>Timelapse of building the animation.</p>  
+    <iframe width="951" height="535" src="https://www.youtube.com/embed/TWd18oKE3fE" title="Blender Timelapse: Night in the Mountains" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>This scene was built entirely using mathematics and there's a couple ideas that I think are good enough that they need an explanation.</p>
+    <h3>A basis for noise</h3>
+    <p>One of the first things I needed was a way to add noise to any function. The method needed to be continuous and scalable so I could stack noise function on top of each other. Both of these are very common in the noise of the real world so the hope would be that this would be enough to simulate anything I needed.</p>
+    <img src="mountains/sketch1.jpg" style="float: left; width: 60%;">
+    <img src="mountains/sketch2.jpg" style="float: right; width:30%;padding-left: 10%; padding-bottom: 3%">
+    <p>This code uses perlin noise in seperate dimensions to 'skew' the numbers in a continuous manner. Perlin noise also allows for the scalability where noise functions can be added together.</p>
+    <p>Worly noise (voronoi noise) was added for the peaks of the mountains. Everything else involved using this method to get continuous noise functions.</p>
+    <h3>More continuity, more dimensions</h3>
+    <p>A still image can be made with the idea above, and one could move around function seeds to get an animation. An issue can occur when looping is required. In this case the first frame and the last frame will not be close and an obvious cut will be visible.</p>
+    <p>A function then needs to be used that takes the input of frame number and outputs a new use for the seeding of the noise such that f(0)=f(a+1) where 0 is the first frame and a is the last frame. This function also needs to be continuous with no obvious transitions. Any change to the speed of frame change (pseudo acceleration) will be visible in the final animation.</p>
+    <p>The trick is to think in higher dimensions. There is no function on the real numbers that satisfies all the requirements necessary, but it does in the complex plane. A function as simple as eⁱˣ solves the requirements. The issue now is how changing a function from one input(real) into two inputs (real and imaginary)</p>
+    <p>One can create a noise function with more dimensions to satisfy this new requirement. For my product I was restricted by blenders native functions which only go as high as 4 dimensions. Because of the 3 spactial inputs with only one free dimension a trick was found to utilize a dimension of 3-space the was perpendicular to the camera</p>
+    <img src="mountains/sketch3.jpg" style="float: right; width: 40%">
+    <p>Sine and cosine are used as they are just the components of eⁱˣ. One part is used directly in the free dimension while the other is combined with the camera direction before incorporating with the position data.</p>
+    <p>different seeds can be found by adding values to the real of complex part. This was deemed unessesary as the position data was enough to have interesting and distinct visuals. </p>
+    <video autoplay muted loop style="width:98%; margin-left:1%; border-radius: 5%;">
+        <source src="https://va.media.tumblr.com/tumblr_rvkctpOumR1z0po5o_720.mp4">
+      </video>
+    <p>This render should be able to run in real time. A lot of concessions need to be made to fog shaders I'm using, but a very similar animation should be possible.</p>
+  </body>
+</html>
