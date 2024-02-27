@@ -15,9 +15,11 @@ nav {
     margin-right: -18px;
     font-size: 20px;
     padding-left: -30px;
-}
-.videos {
-    padding-left: 2%;
+    position: fixed;
+    width: 100%;
+    top:18px;
+    left:18px;
+
 }
 .shrink {
     width: 100%;
