@@ -6,24 +6,132 @@
   <head>
       <link rel="stylesheet" href="writecss.css">
       <link rel="stylesheet" href="../scripts/main.css">
+      <script src="script/gl-matrix-min.js"></script>
+      <script src="script/Sphere.js"></script>
+      <script src="script/MP5.js"></script>
       <script src="../scripts/jquery.js"></script>
       <script>
       $(function(){
           $("#topbar").load("../topbar.html");
       });
       </script>
+      <!-- Modify to include diffuse material color as an attribute! -->
+<script id="shader-vs" type="x-shader/x-vertex">#version 300 es
+
+// Use high-precision floats if available on this device.
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+in vec3 vertexPosition;
+in vec3 vertexNormal;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+out vec3 fragPosition;
+out vec3 fragNormal;
+
+void main(void) {
+    // Transform the vertex position and normal to view coordinates
+    fragPosition = (projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0)).xyz;
+    fragNormal = vertexNormal;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
+}
+</script>
+
+<!-- Fragment shader: does basic Blinn-Phong shading. -->
+<script id="shader-fs" type="x-shader/x-fragment">#version 300 es
+    
+// Use high-precision floats if available on this device.
+
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+
+
+in vec3 fragPosition;
+in vec3 fragNormal;
+
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform sampler2D u_texture;
+uniform float box;
+
+out vec4 fragColor;
+
+vec2 c2s(vec4 dir){
+    float pi = 2.0*acos(0.0);
+    float phi = atan(dir.y,dir.x);
+    float theta = acos(dir.z);
+    return vec2((phi*(1.0/(2.0*pi)))+(pi/2.0),theta/pi);
+}
+
+void main(void) {
+
+
+
+    vec3 nFragNormal = normalize(fragNormal);
+    vec3 viewDir = normalize((inverse(viewMatrix)*inverse(projectionMatrix)*vec4(normalize(fragPosition),1.0)).xyz);
+    
+    if(box==1.0){
+        fragColor=texture(u_texture,c2s(vec4(viewDir,1.0)));
+        fragColor*=7.0;
+ 
+    }else{
+
+
+        float d = dot(nFragNormal,viewDir);
+        float b = sqrt(1.0-(d*d));
+        float smoothed = (b/(1.0-b));
+        float angle = 0.2/(2.0*(0.2-smoothed));
+
+        vec3 axis = normalize(-cross(nFragNormal,viewDir));
+
+
+
+        float s = sin(angle);
+        float c = cos(angle);
+        float oc = 1.0 - c;
+
+        mat3 rotmat = mat3(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,
+                          oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,
+                          oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c);
+        rotmat=transpose(rotmat);
+        vec3 outvec=normalize(rotmat*viewDir);
+
+        if(smoothed<0.2){
+            fragColor = vec4(0.0,0.0,0.0,1.0);
+        } else{
+            fragColor=texture(u_texture,c2s(vec4(outvec,1.0)));
+            fragColor*=7.0;
+        }
+
+    }
+    
+
+    
+}
+</script>
   </head>
-  <body>
+  <body onload="startup();">
     <div id="topbar"></div>
     
     <h1>Black Hole Lensing</h1>
       <div>
-          <video autoplay muted loop style="width:60%; border-radius: 5%; float:right">
-            <source src="https://va.media.tumblr.com/tumblr_rtpmh6duN81z0po5o_720.mp4">
-          </video>
+          <canvas id="glCanvas" width="600" height="600"></canvas>
+            <p style="margin-left: 620px;margin-right: 0px;margin-top: -550px;margin-bottom: 550px; font-size: 18px;">Lensing rendering in real time in the browser using webGL. Base code taken from the cs418 class at UIUC, but has been ripped apart and restitched together to function. Click and drag to move the camera around.</p>
+
       </div>
+      
+      
       <div>
-          <p style="width:37%;">Real time lensing animation that was built initially in Blender. This was made as a contribution to <a href="https://icasu.illinois.edu/outreach/point-vr">POINTVR.</a> Eventually this was ported to a c# shader to be used in the Unity engine. The mathematics is simply enough that a version should be able to run in browser, Something that will be completed at a later date.</p>
+          <p>Real time lensing animation that was built initially in Blender. This was made as a contribution to <a href="https://icasu.illinois.edu/outreach/point-vr">POINTVR.</a> Eventually this was ported to a c# shader to be used in the Unity engine. The mathematics is simply enough that a version should be able to run in browser, Something that will be completed at a later date.</p>
       </div>
       <img src="black-hole/sketch.jpg" style="width:60%;padding-top: 5%;">
       <p style="float:right;padding-top: 5%; width:40%; word-break:normal;white-space: normal;">My initial workflow involed finding the impact parameter(b) to use to solve for the inflection angle(alpha). These came from some prior work I had with orbital mechanics and seemed like a good initial jumping off point.</p>
