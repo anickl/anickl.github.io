@@ -38,6 +38,12 @@
     <video autoplay muted loop style="width:98%; margin-left:1%; border-radius: 5%;">
         <source src="https://va.media.tumblr.com/tumblr_rvkctpOumR1z0po5o_720.mp4">
       </video>
-    <p>This render should be able to run in real time. A lot of concessions need to be made to fog shaders I'm using, but a very similar animation should be possible.</p>
+    <h1>Thats too many parts</h1>
+    <p>In my ever lasting quest for optimization, there are far too many objects I used to create this image. Currently There are 2 columetric cubes: one for the aurora and the other for the fog; and 3 planes: The landscape, water, and underside of water. With a lot of mathematics this can be simplified.</p>
+    <p>The planes can all be combined. The underside of the water causes minimal changes while the water is all one level. A simple height check is enough to switch from the land material to the water.</p>
+    <p>The fog can also be removed by a z-buffer. By measuring the distance a ray needs to travel before it hits a material and where that values is, a primative (but roughly the same) fog can be created using post-processsing effects.</p> 
+    <p>fog is actually really well behaved if ideal. It's a linear effect over distance, which causes it to act as an exponential on a screen. Dealing with different scalings over the image was a bit of a pain, but was solved eventually.</p>
+    <img src="mountains/sketch4.jpg" width="100%">
+    <p>The final scene, before any processing is done on geometry. This ended up saving almost nothing and causes longer render times due to post-processing effects.</p>
   </body>
 </html>
