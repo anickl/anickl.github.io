@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+      <div id="topbar"></div>
+      <h1>Waves</h1>
+      <img style="width:50%;" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0297096e-21d5-4a5d-b443-5eeb1dd10d08/dhns92a-16403351-414b-4f3a-8437-79684eab3079.png/v1/fill/w_1280,h_720,q_80,strp/cattails_by_djskiskyskoski_dhns92a-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMDI5NzA5NmUtMjFkNS00YTVkLWI0NDMtNWVlYjFkZDEwZDA4XC9kaG5zOTJhLTE2NDAzMzUxLTQxNGItNGYzYS04NDM3LTc5Njg0ZWFiMzA3OS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.cOOfKdjWlAc5_371R6fSWNTGaN84f8TmR9UCi0KP4yo">
+      <p>Turns out waves on water get really weird. At a deep enough level (wavelength is much shorter than the height of the water) the speed of a wave is dependant on its wavelength. This is called <a href="https://en.wikipedia.org/wiki/Dispersion_(water_waves)">dispersion</a> and causes a bunch of weird phenomenon to occur on the open ocean and the transition to shallow water.</p>
+      <p>Dispersion was the model I wanted to use to any waves involved as the die-off of the waves should give it a nice curve to fade away as the wave travels. The massive issue is that I could not find any good simple models for these waves that could be rendered (the only thing I found were Bessel functions and I know I'm not making those).</p>
+      <p>In the end I found a way to scale the waves as it gets farther from the source using exponents. taking the distance to the source to some power (I used 0.35 for testing) gives a decent scaling, but other linear scalings are needed to reach a desired effect.</p>
+      <img style="width:30%" src="cattails/sketch2.png">
+      <p>After this an exponential decay was added to help it fade to nothing as the wave gets farther from the point source. <a href="https://en.wikipedia.org/wiki/Stokes_wave">Stokes wave</a> was also used instead of a sine wave in the end.</p>
+      <img style="width:60%;" src="cattails/sketch1.png">
+      <p>Now I just need to map this to the final mesh for wherever waves are originating from. I'll leave it as an excersize for the reader that these point sources can be combines to form a line/any curve.</p>
+      <img style="width:40%;" src="cattails/sketch3.png">
+      <p>There's a problem. The initial waves are built in blender using a modifier, and this modifier prevents some of the tricks to get pixel depth precision on my functions. Without this trick I could only get a depth down to a vertex, which is much more spaced and really doesnt look good. The only thing I could do now is manually add every wave source, which I wasnt going to do. I had this mathematical model maps out, but another problem I saw coming prevented the complexity. In the end I used this point source model for the log in the image (albeit stretched so I only needed one point source) and settled on a noise texture to mimic the chaos around the grass.</p>
+      <img style="width:60%;" src="cattails/sketch4.png">
+      <p>after that it's using a lot of different blurs (motion blur and depth of field) to try and hide a lot of the 'neatness' of a render and to try and make the final render look more like a photograph.</p>
+  </body>
+</html>
