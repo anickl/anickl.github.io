@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+      <div id="topbar"></div>
+      <h1>Piles of rocks.</h1>
+      <p>I found a good amount of resources to built rocks, but none of them built the rocks in mass. The few that I found built the rocks from a surface and were more for paths rather than the piles that I wanted it for.</p>
+      <img width="50%" src="rocks/1.jpg"/>
+      <p>A space is defined and a vornoi diagram is used to populate it with base polygons. Due to blender these are voxelized, but that can help with random noise to some extent.</p>
+      <img width="50%" src="rocks/2.jpg"/>
+      <p>Because the edge of the field cuts the polygons, deleting those polygons near the top prevents these problems. Doing this shows a lot of the randomness which is wanted.</p>
+      <img width="50%" src="rocks/3.jpg"/>
+      <p>Some vertex merging and offsetting is enough to get the rocks almost looking good.</p>
+      <img width="50%" src="rocks/4.jpg"/>
+      <p>With some more vertex smoothing it looks good enough. There are a few missing triangles, but materials and other work does enough to mask these holes.</p>
+      <img width="50%" src="rocks/5.jpg"/>
+      <img width="100%" src="rocks/6.jpg"/>
+  </body>
+</html>
