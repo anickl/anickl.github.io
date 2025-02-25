@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+      <div id="topbar"></div>
+      <h2>Image Quantizing</h2>
+      <p>Image quantization is the best term I can come up for. When explaining this script to others i describe it as "old computers could only display 8 colors at a time. what 8 colors would you pick to best describe this image." Only difference with the script is the number doesn't need to be 8.</p>
+      <video autoplay muted loop style="width:50%;" id="vid2">
+          <source src="imQuant/Imvid.mp4">
+      </video>
+      <p>The first step involves building the data structure that holds all the pixel information. I used a dict with an input of the rgb values and stores a value of how many times that color appears in the image (the left side of the video is a 3d object where each dot represent a pixel color that exists in the original image). This is one of the densest ways I could store all the information that I needed to keep and allows me time to calculate an average pixel color as its being built.</p>
+      <p>Next I create 8 random points (could be any numbter of points) and send them on a random walk, change the points slightly and see if it scores better, to try and find a roughly good answer. What they are trying to solve is what 8 points minimize the distance to all the pixels from the original image. A voronoi diagram could also be used to describe this space, but each pixel is scored only with the closest point. So there's a sweet spot between being close to high value pixel colors (colors that appearr often in the image) and colors that are lonely and far away from all other colors. This process only takes the first 20 frames of the video</p>
+      <p>Afterwards I use simulated annealing to try and break through any false peaks and find a better global minimum. This is done through the same random walk method, but sometimes the new points are kept even if they give a worse score. The hope is that this can hop over local minimums, and with chaning the probability of how often the worse answers are kept, a better answer is hopefully achieved. This process takes the majority of the time, taking 770 frames in the video.</p>
+      <p>Lastly another random walk is made with pixel precision. The previous 2 processes were a little noisy to help speed runtime, so a final step to find the true minimum. This process is quite quick, taking only 10 frames of the final video, but it is worth it as the points are obviously seating into their final position.</p>
+      <h3>Original image</h3>
+      <img style="width:90%" src="imQuant/20221227_161150.jpg"/>
+      <h3>Output Image</h3>
+      <img style="width:80%" src="imQuant/olmai-1.png"/>
+      <p>I did scale the image down by 1/4th. runtime was over a day long and reducing the pixels reduces the dict size. This is ment to imitate a pixel art style so reducing the pixel counts only to rescale later is almost the style im looking for.</p>
+</html>
