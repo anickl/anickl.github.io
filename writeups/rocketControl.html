@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+    <body>
+        <div id="topbar"></div>
+        <h1>More KSP</h1>
+        <p>I've already done other projects involving remotely operating kerbal space program. It's relatively simple to pull data from the simulation and to send commands back to it.The question I wanted to answer was what commands did I need to send in order to send a rocket into orbit without touching the controls once, and how I can optimize the flight trajectory. What I wanted to find was a function that could take a rockets current telemetry and output the controls the rocket should make to continue on an optimal flight path.</p>
+        <p>I knew that this function was going to be complicated, so I didnt really care about what it looked like. All I wanted was a black box that I could feed the inputs and it would spit out an output. This is the definition of a problem that deep learning and machine learning is suppose to solve.</p>
+        <h3>Deep learning did not work</h3>
+        <p>I had set up a model to train itself and hopefully learn how to fly. In reality all it did was find more optimal ways to crash into the ground. This was made slower by the fact that KSP has a memory leak in its saveloading, meaning that every run the code did, KSP would get more and more unstable until in corrupted something. This put a hard limit on the amount of runs I could let he script run for before manually restarting everything. After about 200 hours of training and pains, I admitted that this wasn't working and I should do something else.</p>
+        <p>Rocket guidance is really hard to find good papers on (for good reason I guess). <a href="https://apps.dtic.mil/sti/tr/pdf/AD0607714.pdf">It is nice when a paper from the 1960's</a> says that OLS can be used and provides functions that are polynomials of degree 2 at most. This just told me to take the input parameters (and my input parameters squared) and run OLS on them to get the required outputs.</p>
+        <video autoplay muted loop style="width:70%;" id="vid2">
+          <source src="rockCont/kspvid.mp4">
+        </video>
+        <p>It really was that easy. The OLS took data points from 4 launches with manual control (about 2000 data points) and in total took about an hour to get the run shown above. There's still work to be done with optimization now. The OLS mimic'd how I flew the craft, but its not the most optimal way to get into orbit. Up next I would take the weights recieved from OLS, and start tweaking them up and down by small amounts in hopes to get a more optimal output. Optimization was determined by the amount of fuel left over in the craft after achieving orbit.</p>
+        <p>Small tweaks were done after in a similar vein to simulated annealing work I had done previously. With that it only required another 20 hours to run and get something that is more efficient than any manually control launch.</p>
+    </body>
+</html>
