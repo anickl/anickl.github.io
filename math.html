@@ -68,5 +68,12 @@
     <p>quaternions are not commutative (x*y &ne; y*x) so animations and renders are very weird. </p>
     <h2>&pi; by paperclip</h2>
     <iframe width="700" height="394" src="https://www.youtube.com/embed/OShwEzdmhik" title="calculating pi by bending a paper clip" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <h2>&pi; by coinflip</h2>
+    <p>No video for this one. What I saw was that random walks and brownian motion have a pi built into most of the equations built around it. This is mostly because gaussian get involved, and &pi; is very much part of a gaussian. A random walk is achieved by counting all heads flipped and subtracting all tails flipped, leaving us with a random number after n flips. With enough runs of n flips a gaussian can be drawn.</p>
+      <img src="https://64.media.tumblr.com/5b9dfc0905530c47b6d4b222ee4f0cb4/1f931171d34fa127-b9/s1280x1920/addb5485d9db8279ba182a85f9406773a8930875.pnj" style="width: 20%; left:0%">
+    <p>The standdard deviation of n coin flips is &radic;n. A curve fit can be used to solve for the height of the gaussian which will include a 1/&radic;&pi; the value found for &pi; from the curve above was 3.173890226347196.</p>
+      <p>You could also find the probability that after 2n throws, n heads and n tails were thrown. This probability is (2n choose n)/2<sup>2n</sup>. This value converges at high n to 1/&radic;n&pi; to first order. This means that flipping n coins enough times and checking if you have equal heads and tails is another way to calculate pi.</p>
+      <p>&Gamma; functions are involved with this probability, and the almost cancel out. n never really gets high enough to dominate, so higher order terms are recommended (the next term is -1/8&radic;n<sup>3</sup>). </p>
+      
   </body>
 </html>
