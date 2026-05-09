@@ -28,5 +28,11 @@
         </video>
         <p>It really was that easy. The OLS took data points from 4 launches with manual control (about 2000 data points) and in total took about an hour to get the run shown above. There's still work to be done with optimization now. The OLS mimic'd how I flew the craft, but its not the most optimal way to get into orbit. Up next I would take the weights recieved from OLS, and start tweaking them up and down by small amounts in hopes to get a more optimal output. Optimization was determined by the amount of fuel left over in the craft after achieving orbit.</p>
         <p>Small tweaks were done after in a similar vein to simulated annealing work I had done previously. With that it only required another 20 hours to run and get something that is more efficient than any manually control launch.</p>
+        
+        <h2>Airplane Autopilot</h2>
+        <p>Aircraft autopilot really isnt that hard (dont quote me on that, edge cases exist and I've seen them). It mostly involves finding what direction you should point at and turn to point that way.</p>
+        <img src="rockCont/Screenshot%202026-05-09%20173621.png"/>
+        <p>A GUI was built to help with changing variables in real time to help with debugging. Dealing with coordinates tends to be in degrees, while all computations need to be converted into radians naturally. A lot of bugs involved finding where this convertion was not described.</p>
+        <p>Turns were applied by rolling up to 30 degrees. A semi-complex collision detection method was installed where it would check the ground clearance up to 5 minutes ahead of its current direction. If a tolerance was no met, it would attempt to pitch up while canceling any current turn commands. This still had bugs and liked to crash into cliffs, but overall was able to service its requirements.</p>
     </body>
 </html>
