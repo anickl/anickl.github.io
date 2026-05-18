@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    𓆏
+  </title>
+  <head>
+      
+      <link rel="stylesheet" href="writecss.css">
+      <link rel="stylesheet" href="../scripts/main.css">
+      
+      <script src="../scripts/jquery.js"></script>
+      <script>
+      $(function(){
+          $("#topbar").load("../topbar.html");
+      });
+      </script>
+  </head>
+  <body>
+      <div id="topbar"></div>
+      <h2>Art commissions</h2>
+      <p>My inistial work started off with attempting a 'paint by number' system. The idea was that each section of a mathematically defined object could get its own number which could then be referenced.</p>
+      <img style width="60%" src=sidewalk/1.jpg />
+      <p>This style ended up not looking that good. And with a job popping up to paint some sidewalks for a local event I thought I'd make it better. I knew from this previous project that I could get a recurring pattern by using a function that utilized sine and cosine. sin(y) would allow for a repeating pattern in the y direction and cos(f(x)) helps extend the function farther than 2π. sin and cosine can be interchanged, they just change the phase and will alter the output slightly.</p>
+      <img style width="50%" src=sidewalk/2.jpg />
+      <p>Next the intersections need to get defined so that each section can get its own color. Each intersection's y-value is a multiple of π which makes it easy, but the x values change over x. This is realated to everytime f(x) reaches the next multiple of π. I had some previous experience with this and adding sin(f(x)) to f(x) gives a steping function that can be reduced down to give unique values. Notice how each black line ends at an intersection.</p>
+      <img style width="50%" src=sidewalk/3.jpg />
+      <p>With this, and the patchwork pattern already formed by the previous function. an Id for each position can be aquired.</p>
+      <img style width="40%" src=sidewalk/4.jpg />
+      <p>This only gives half of what I want, I need to take the same function and reflect it across the x axis to get the other half.</p>
+      <img style width="60%" src=sidewalk/5.jpg />
+      <p>Good enough as a template. Different colors were tested and this one was chosen. Next up was the build out stencils and make the art.</p>
+      <img style width="66%" src=sidewalk/20230724_091952.jpg />
+      <img style width="33%" src=sidewalk/20230724_092011.jpg />
+      <h2>Something easier</h2>
+      <p>Instead of weird math, and because I wasn't inspired my math in the week before the deadline, I picked something easier.</p>
+      <img style width="60%" src=sidewalk/submit.jpg />
+      <p> Taking this 3 foot tall cicada, some stencils were made for different colors and then cicads were drawn on the road</p>
+      <table>
+        <tr>
+          <td style="width:45%">
+              <img style="width:100%" src=sidewalk/20240722_092302.jpg />
+          </td>
+            <td style="width:45%">
+                <img style="width:100%;" src=sidewalk/20240722_092318.jpg />
+                <img style="width:100%" src=sidewalk/20240722_092328.jpg />
+            </td>
+        </tr>
+      </table>
+      
+
+      
+    </body>
+</html>
